@@ -6,4 +6,5 @@
 
 python3 python/webscrapping.py
 
-
+2) pour créér l'index il faut exécuter le programme python suivant:
+python3  python/index.py

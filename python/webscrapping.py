@@ -56,7 +56,7 @@ for url_Restaurants_Bars in liste_page:
         print(f"Erreur lors de la récupération de la page {url_Restaurants_Bars}")
 
 # Enregistrement du DataFrame dans un fichier CSV avec le séparateur ";"
-output_file = 'verbatims.csv'
+output_file = 'csv/verbatims.csv'
 df_com.to_csv(output_file, sep=';', index=False)
 
 print(f"Le DataFrame a été enregistré dans le fichier CSV : {output_file}")

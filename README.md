@@ -4,6 +4,6 @@
 
 1) pour exporter en fichier CSV l'ensemble des commentaires (verbatims) il faut exécuter le programme python
 
-python3 webscrapping.py
+python3 python/webscrapping.py
 
 

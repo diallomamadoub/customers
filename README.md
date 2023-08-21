@@ -5,9 +5,9 @@ Notre projet consiste à analyser la satisfaction client à partir des ressentis
 Nous avons d'abord choisi une entreprise qui travaille dans le domaine de restauration. 
 Ensuite nous avons choisi une liste des métriques:
 
-*Variété du menu* : Mesurez la satisfaction des clients concernant la variété des plats proposés dans le menu. Les commentaires peuvent inclure des remarques sur la diversité des options disponibles.
+*Variété du menu(variety)* : Mesurez la satisfaction des clients concernant la variété des plats proposés dans le menu. Les commentaires peuvent inclure des remarques sur la diversité des options disponibles.
 
-*Présentation des plats* : Évaluez la satisfaction des clients concernant la présentation visuelle des plats. Les commentaires peuvent inclure des remarques sur l'esthétique et l'attrait des plats.
+*Présentation des plats(display)* : Évaluez la satisfaction des clients concernant la présentation visuelle des plats. Les commentaires peuvent inclure des remarques sur l'esthétique et l'attrait des plats.
 
 *Prix(price)* : Mesurez la satisfaction des clients concernant les prix des plats proposés. Les commentaires peuvent inclure des remarques sur la valeur perçue par rapport aux prix.
 

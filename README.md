@@ -30,4 +30,14 @@ python3 python/webscrapping.py
 2) pour créér l'index il faut exécuter le programme python suivant:
 python3  python/index.py
 
-# test Jules Cesar
+# Decription du code index.py
+
+index.py est un code python qui:
+1)Charge des données à partir d’un fichier CSV nommé 'verbatims.csv' dans un DataFrame pandas.
+2)Convertit les dates au format texte en dates au format ISO.
+3)Se connecte à Elasticsearch sur localhost:9200.
+4)Supprime l’index Elasticsearch s’il existe déjà.
+5)Ajoute des champs avec des valeurs par défaut de 0 au DataFrame pandas.
+6)Crée un index Elasticsearch nommé 'hellofresh_reviews' avec un mapping spécifié.
+7)Convertit la colonne 'note' en nombres flottants.
+8)Importe les données du DataFrame dans Elasticsearch en tant que documents.

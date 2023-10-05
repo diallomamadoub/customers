@@ -1,12 +1,10 @@
-from elasticsearch import Elasticsearch
 import pandas as pd
 from datetime import datetime
+from elasticsearch import Elasticsearch
 
 # Charger les données du fichier CSV dans un DataFrame pandas
-csv_file ='csv/verbatims.csv'
+csv_file = 'csv/verbatims.csv'
 df_com = pd.read_csv(csv_file, sep=';')
-
-print(df_com.head(5))
 
 # Dictionnaire de correspondance des mois
 correspondance_mois = {
@@ -21,15 +19,12 @@ def convertir_date_texte(date_texte):
     annee = elements_date[2]
     date_convertie = f'{annee}-{mois}-{jour}'
     return datetime.strptime(date_convertie, '%Y-%m-%d')
-# ...
 
 # Appliquer la fonction de conversion à la colonne "date"
 df_com['date'] = df_com['date'].apply(convertir_date_texte)
 
-print(df_com.head(5))
-
 # Connexion à Elasticsearch
-es = Elasticsearch([{'host': 'localhost', 'port': 9200}])  # Remplacez localhost et 9200 par les informations de connexion à votre cluster Elasticsearch
+es = Elasticsearch([{'host': 'localhost', 'port': 9200}])
 
 # Nom de l'index Elasticsearch
 index_name = 'hellofresh_reviews'
@@ -38,23 +33,39 @@ index_name = 'hellofresh_reviews'
 if es.indices.exists(index=index_name):
     es.indices.delete(index=index_name)
 
-# Mapping Elasticsearch
+# Liste des champs à ajouter avec la valeur par défaut de 0
+fields_to_add = ['quality','variety', 'display', 'price', 'service', 'decor', 'time', 'cleanliness', 'flavor', 'quantity']
+
+# Ajouter les champs avec une valeur de 0 au DataFrame
+for field in fields_to_add:
+    if field not in df_com.columns:
+        df_com[field] = 0
+
+# Mapping Elasticsearch avec valeurs par défaut
 mapping = {
     'properties': {
         'auteur': {'type': 'keyword'},
         'opinion': {'type': 'text'},
         'commentaire': {'type': 'text'},
         'note': {'type': 'float'},
-        'date': {'type': 'date'}
+        'date': {'type': 'date'},
+        'quality': {'type': 'integer'},
+        'variety': {'type': 'integer'},
+        'display': {'type': 'integer'},
+        'price': {'type': 'integer'},
+        'service': {'type': 'integer'},
+        'decor': {'type': 'integer'},
+        'time': {'type': 'integer'},
+        'cleanliness': {'type': 'integer'},
+        'flavor': {'type': 'integer'},
+        'quantity': {'type': 'integer'}
     }
 }
 
 # Créer l'index avec le mapping spécifié
 es.indices.create(index=index_name, body={'mappings': mapping})
 
-
-# Convertir la date au format ISO 8601 (par exemple, "2020-04-09T00:00:00Z")
-#df_com['date'] = df_com['date'].apply(lambda x: parse(x, dayfirst=True).strftime('%Y-%m-%d'))
+# Convertir la colonne 'note' en nombres flottants
 df_com['note'] = df_com['note'].str.replace(',', '.').astype(float)
 
 # Importer les données dans Elasticsearch
@@ -63,4 +74,5 @@ for _, row in df_com.iterrows():
     es.index(index=index_name, body=doc)
 
 print("Index créé avec succès !")
+
 
